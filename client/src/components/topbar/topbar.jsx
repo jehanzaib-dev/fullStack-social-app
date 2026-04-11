@@ -1,0 +1,62 @@
+import './topbar.css';
+import * as MuiIcons from "@mui/icons-material";
+
+
+export default function TopBar(){
+	const SearchIcon=MuiIcons.Search;
+	const PersonIcon=MuiIcons.Person;
+	const ChatIcon=MuiIcons.Chat;
+	const NotificationsIcon=MuiIcons.Notifications;
+
+
+	return(
+		<div className='topbarContainer'>
+		<div className="topbarLeft">
+			<span className="logo">My Social</span>
+		</div>
+		<div className="topbarCenter">
+			<div className="searchBar">
+			<SearchIcon className="searchIcon"/>
+			<input placeholder="Search for friend, post or video" className="searchInput"/>
+		</div>
+		</div>
+		<div className="topbarRight">
+			<div className="topbarLinks">
+			<span className="topbarLink">HomePage</span>
+			<span className="topbarLink">TimeLine</span>
+		</div>
+			<div className="topbarIcons">
+			<div className=" topbarIconItem">
+			<PersonIcon/>
+			<span className="topbarIconBadge">
+			1
+			</span>
+
+			</div>
+			<div className=" topbarIconItem">
+			<ChatIcon/>
+			<span className="topbarIconBadge">
+			2
+			</span>
+
+			</div>
+			<div className=" topbarIconItem">
+			<NotificationsIcon/>
+			<span className="topbarIconBadge">
+			1
+			</span>
+
+			</div>
+		</div>
+		<img src="/assets/person/1.jpeg" alt="" className="topbarImg"/>
+		</div>
+
+		</div>
+		)
+}
+
+
+
+
+
+
