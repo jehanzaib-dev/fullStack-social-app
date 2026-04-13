@@ -7,6 +7,8 @@ import {Users} from '../../dummyData.js';
 
 export default function RightBar({profile}){
 
+	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
+
 	const ProfileRightBar=()=>{
 		return(
 			<>
@@ -33,32 +35,32 @@ export default function RightBar({profile}){
 			<h4 className="userFriendsHeading">User Friends</h4>
 			<div className="userFollowingsCntnr">
 			<div className="userFollowingItemCntnr">
-			<img src="assets/person/1.jpeg" alt="" className="userFollowingImg"/>
+			<img src={`${publicFolder}person/1.jpeg`} alt="" className="userFollowingImg"/>
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>
 			<div className="userFollowingItemCntnr">
-			<img src="assets/person/2.jpeg" alt="" className="userFollowingImg"/>
+			<img src={`${publicFolder}person/2.jpeg`} alt="" className="userFollowingImg"/>
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>
 			<div className="userFollowingItemCntnr">
-			<img src="assets/person/3.jpeg" alt="" className="userFollowingImg"/>
+			<img src={`${publicFolder}person/3.jpeg`} alt="" className="userFollowingImg"/>
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>
 			<div className="userFollowingItemCntnr">
-			<img src="assets/person/4.jpeg" alt="" className="userFollowingImg"/>
+			<img src={`${publicFolder}person/4.jpeg`} alt="" className="userFollowingImg"/>
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>
 			<div className="userFollowingItemCntnr">
-			<img src="assets/person/5.jpeg" alt="" className="userFollowingImg"/>
+			<img src={`${publicFolder}person/5.jpeg`} alt="" className="userFollowingImg"/>
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>
 			<div className="userFollowingItemCntnr">
-			<img src="assets/person/6.jpeg" alt="" className="userFollowingImg"/>
+			<img src={`${publicFolder}person/6.jpeg`} alt="" className="userFollowingImg"/>
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>

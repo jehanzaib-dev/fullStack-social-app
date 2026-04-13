@@ -7,6 +7,8 @@ import RightBar from '../../components/rightbar/rightbar.jsx';
 
 export default function ProfilePage(){
 
+	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
+
 	return(
 		<>
 		<TopBar/>
@@ -15,8 +17,8 @@ export default function ProfilePage(){
 			<div className="profileRight">
 			<div className="profileRightTop">
 			<div className="profileTopImagesCntnr">
-			<img src='assets/post/3.jpeg' alt="" className="profileCoverImg"/>
-			<img src='assets/person/3.jpeg' alt="" className="profilePicImg"/>
+			<img src={`${publicFolder}post/3.jpeg`} alt="" className="profileCoverImg"/>
+			<img src={`${publicFolder}person/7.jpeg`} alt="" className="profilePicImg"/>
 
 			</div>
 			<div className="profileTopTextCntnr">

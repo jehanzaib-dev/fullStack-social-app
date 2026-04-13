@@ -8,6 +8,9 @@ export default function Post({post}){
 	const MoreVertIcon=MuiIcons.MoreVert;
 	const [likeCount, setLikeCount]=useState(post.like);
 	const [isLiked, setIsLiked]=useState(false);
+	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
+
+
 
 	const handleLike=()=>{
 		setLikeCount(isLiked?likeCount-1:likeCount+1);
@@ -33,12 +36,12 @@ return(
 			<span className="postWrapperCenterText">
 				{post?.desc}
 			</span>
-			<img src={post.photo} alt="" className="postWrapperCenterImg"/>
+			<img src={publicFolder+post.photo} alt="" className="postWrapperCenterImg"/>
 			</div>
 			<div className="postWrapperBottom">
 				<div className="postWrapperBottomLeft">
-					<img src="assets/like.png" alt="" className="likeIcon" onClick={handleLike}/>
-					<img src="assets/heart.png" alt="" className="likeIcon" onClick={handleLike}/>
+					<img src={`${publicFolder}like.png`} alt="" className="likeIcon" onClick={handleLike}/>
+					<img src={`${publicFolder}heart.png`} alt="" className="likeIcon" onClick={handleLike}/>
 					<span className="postLikeCounter">
 						{likeCount} people liked it
 					</span>

@@ -40,11 +40,15 @@ const userSchema=new Schema({
 		type:Boolean,
 		default:false,
 	},
-	desc:{
+	city:{
 		type:String,
 		max:50
 	},
 	from:{
+		type:String,
+		max:50
+	},
+	desc:{
 		type:String,
 		max:50
 	},
