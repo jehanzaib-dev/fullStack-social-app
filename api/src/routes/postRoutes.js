@@ -13,6 +13,6 @@ postRouter.route("/react/:id").put(reactOnPost);
 
 postRouter.route("/find/:id").get(getOnePost);
 
-postRouter.route("/timeline").get(getTimelinePosts);
+postRouter.route("/timeline/:userId").get(getTimelinePosts);
 
 export default postRouter;

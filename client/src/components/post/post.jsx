@@ -1,14 +1,20 @@
 import './post.css';
 import * as MuiIcons from "@mui/icons-material";
-import {useState} from 'react';
-import {Users} from '../../dummyData.js';
+import {useState,useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
+import {format} from 'timeago.js'
 
 
 export default function Post({post}){
 	const MoreVertIcon=MuiIcons.MoreVert;
-	const [likeCount, setLikeCount]=useState(post.like);
-	const [isLiked, setIsLiked]=useState(false);
 	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
+
+	const [likeCount, setLikeCount]=useState(post.likes.length);
+	const [isLiked, setIsLiked]=useState(false);
+	const [user, setUser]=useState({});
+
+	
 
 
 
@@ -16,17 +22,27 @@ export default function Post({post}){
 		setLikeCount(isLiked?likeCount-1:likeCount+1);
 		setIsLiked(!isLiked);
 	}
+	useEffect(()=>{
+		const fetchUser=async()=>{
+		const response=await axios.get(`/users/get/${post.userId}`);
+		
+		setUser(response.data.user);
+		}
+		fetchUser();
+	},[post.userId]);
 
 return(
 	<div className="postContainer">
 		<div className="postWrapper">
 			<div className="postWrapperTop">
 				<div className="postWrapperTopLeft">
-				<img src={Users.filter((u)=>u.id===post.userId)[0].profilePicture} alt="" className="postWrapperTopLeftImg"/>
+				<Link to={`profile/${user.username}`}>
+				<img src={user.profilePicture || publicFolder+"person/noAvatar.png"} alt="" className="postWrapperTopLeftImg"/>
+			</Link>
 				<span className="postWrapperTopLeftText">
-					{Users.filter((u)=>u.id===post.userId)[0].username}
+					{user.username}
 				</span>
-				<span className="postWrapperTopLeftDate">{post.date}</span>
+				<span className="postWrapperTopLeftDate">{format(post.createdAt)}</span>
 				</div>
 				<div className="postWrapperTopRight">
 					<MoreVertIcon className="postWrapperTopRightIcon"/>
@@ -36,7 +52,7 @@ return(
 			<span className="postWrapperCenterText">
 				{post?.desc}
 			</span>
-			<img src={publicFolder+post.photo} alt="" className="postWrapperCenterImg"/>
+			<img src={publicFolder+post.img} alt="" className="postWrapperCenterImg"/>
 			</div>
 			<div className="postWrapperBottom">
 				<div className="postWrapperBottomLeft">

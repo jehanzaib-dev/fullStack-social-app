@@ -75,13 +75,13 @@ const getOnePost=async(req, res)=>{
 }
 const getTimelinePosts=async(req, res)=>{
 	try{
-		const currentUser=await userModel.findById(req.body.userId);
+		const currentUser=await userModel.findById(req.params.userId);
 		const currentUserPosts=await postModel.find({userId:currentUser._id});
 		const friendsPosts=await Promise.all(currentUser.following.map((friendId) => {
 			return postModel.find({userId:friendId});
 		})
 	);
-		res.json(currentUserPosts.concat(...friendsPosts));
+		res.status(200).json(currentUserPosts.concat(...friendsPosts));
 	}
 	catch(err){
 		console.log("ERROR Occured:", err);
