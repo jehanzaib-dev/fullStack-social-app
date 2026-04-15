@@ -44,8 +44,10 @@ const deleteUser = async (req, res) => {
   }
 };
 const getUser= async(req, res)=>{
+  const userId=req.query.userId;
+  const username=req.query.username;
   try{
-    const user=await userModel.findById(req.params.id);
+    const user=userId ? await userModel.findById(userId): await userModel.findOne({username:username});
     if(!user) return res.status(400).json({message:"no user found with this id"});
     const {password, updatedAt, ...others}=user._doc;
     res.status(200).json({message:"user found", user:others});

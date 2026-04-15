@@ -6,17 +6,17 @@ import axios from 'axios';
 
 
 
-export default function Feed(){
+export default function Feed({username}){
 
 	const [posts, setPosts]=useState([]);
 
 	useEffect(()=>{
 		const fetchPosts=async()=>{
-		const response=await axios.get("/posts/timeline/69d747f9791e0b0a933a0da1");
+		const response=username? await axios.get("/posts/profile/"+username) :await axios.get("/posts/timeline/69d747f9791e0b0a933a0da1");
 		setPosts(response.data); 	
 		}
 		fetchPosts();
-	},[]);
+	},[username]);
 
 	return(
 		<div className='feedContainer'>

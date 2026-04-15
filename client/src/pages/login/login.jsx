@@ -1,6 +1,17 @@
 import './login.css';
+import {useRef} from 'react';
+
+
 
 export default function LoginPage(){
+	const email=useRef();
+	const password=useRef();
+
+
+	const handleSubmit=(e)=>{
+		e.preventDefault();
+		console.log(email.current.value);
+	}
 
 	return(
 		<div className="loginPageCntnr">
@@ -11,16 +22,14 @@ export default function LoginPage(){
 		</span>
 		</div>
 		<div className="wrapperRight">
-		<div className="loginBox">
-		<input type="email" placeholder="Email" className="loginInputs"/>
-		<input type="password" placeholder="Email" className="loginInputs"/>
+		<form className="loginBox" onSubmit={handleSubmit}>
+		<input type="email" placeholder="Email" required className="loginInputs" ref={email}/>
+		<input type="password" placeholder="Password" required minLength="6" className="loginInputs" ref={password}/>
 		<button className="loginButton">Log In</button>
 		<span className="forgotPasswordSpan">Forgot Password?
 		</span>
 		<button className="registerButton">Create a New Account</button>
-
-
-		</div>
+		</form>
 		</div>
 		</div>
 

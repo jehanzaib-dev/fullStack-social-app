@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {createPost, updatePost, deletePost, reactOnPost, getOnePost, getTimelinePosts} from "../controller/postController.js";
+import {createPost, updatePost, deletePost, reactOnPost, getOnePost, getUserPosts, getTimelinePosts} from "../controller/postController.js";
 
 const postRouter=Router();
 
@@ -12,6 +12,8 @@ postRouter.route("/delete/:id").delete(deletePost);
 postRouter.route("/react/:id").put(reactOnPost);
 
 postRouter.route("/find/:id").get(getOnePost);
+
+postRouter.route("/profile/:username").get(getUserPosts);
 
 postRouter.route("/timeline/:userId").get(getTimelinePosts);
 

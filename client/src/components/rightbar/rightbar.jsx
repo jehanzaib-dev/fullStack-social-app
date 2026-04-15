@@ -5,7 +5,7 @@ import {Users} from '../../dummyData.js';
 
 
 
-export default function RightBar({profile}){
+export default function RightBar({user}){
 
 	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -17,19 +17,19 @@ export default function RightBar({profile}){
 			<div className="rightBarDataCntnr">
 			<span className="rightBarDataKey">City:
 			</span>
-			<span className="rightBarDataValue">New York
+			<span className="rightBarDataValue">{user.city}
 			</span>
 			</div>
 			<div className="rightBarDataCntnr">
 			<span className="rightBarDataKey">From:
 			</span>
-			<span className="rightBarDataValue">Madrid
+			<span className="rightBarDataValue">{user.from}
 			</span>
 			</div>
 			<div className="rightBarDataCntnr">
 			<span className="rightBarDataKey">Relationship:
 			</span>
-			<span className="rightBarDataValue">Single
+			<span className="rightBarDataValue">{user.relationship===1?"Single":user.relationship===2?"Married":"-"}
 			</span>
 			</div>
 			<h4 className="userFriendsHeading">User Friends</h4>
@@ -95,7 +95,7 @@ export default function RightBar({profile}){
 return(
 	<div className='rightBar'>
 		<div className="rightbarWrapper">
-			{profile ? <ProfileRightBar/>:<HomeRightBar/>}
+			{user ? <ProfileRightBar/>:<HomeRightBar/>}
 
 		</div>
 	

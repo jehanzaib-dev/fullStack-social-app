@@ -73,6 +73,17 @@ const getOnePost=async(req, res)=>{
   		res.status(500).json({ message: err.message });
 	}
 }
+const getUserPosts=async(req, res)=>{
+	try{
+		const user=await userModel.findOne({username:req.params.username});
+		const userPosts=await postModel.find({userId:user._id});
+		res.status(200).json(userPosts);
+	}
+	catch(err){
+		console.log("ERROR Occured:", err);
+  		res.status(500).json({ message: err.message });
+	}
+}
 const getTimelinePosts=async(req, res)=>{
 	try{
 		const currentUser=await userModel.findById(req.params.userId);
@@ -90,4 +101,4 @@ const getTimelinePosts=async(req, res)=>{
 }
 
 
-export {createPost, updatePost, deletePost, reactOnPost, getOnePost, getTimelinePosts}
+export {createPost, updatePost, deletePost, reactOnPost, getOnePost, getUserPosts, getTimelinePosts}
