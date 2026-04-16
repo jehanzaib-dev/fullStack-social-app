@@ -1,6 +1,39 @@
 import './register.css';
+import {useRef} from 'react';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+
+
+
 
 export default function RegisterPage(){
+
+	const username=useRef();
+	const email=useRef();
+	const password=useRef();
+	const passwordAgain=useRef();
+	const navigate=useNavigate();
+
+	const handleSubmit=async(e)=>{
+		e.preventDefault();
+		if(passwordAgain.current.value !== password.current.value){
+			passwordAgain.current.setCustomValidity("passwords don't match");
+		}
+		else{
+			const user={
+				username:username.current.value,
+				email:email.current.value,
+				password:password.current.value
+			}
+		try{
+			await axios.post("/auth/register", user);
+			navigate("/login");
+		}
+		catch(error){
+			console.log(error);
+		}
+		}
+	}
 
 	return(
 		<div className="loginPageCntnr">
@@ -11,16 +44,15 @@ export default function RegisterPage(){
 		</span>
 		</div>
 		<div className="wrapperRight">
-		<div className="loginBox">
-		<input type="text" placeholder="Username" className="loginInputs"/>
-		<input type="email" placeholder="Email" className="loginInputs"/>
-		<input type="password" placeholder="Password" className="loginInputs"/>
-		<input type="password" placeholder="Confirm Password" className="loginInputs"/>
-		<button className="loginButton">Sign Up</button>
+		<form className="loginBox" onSubmit={handleSubmit}>
+		<input type="text" placeholder="Username" className="loginInputs" ref={username} required/>
+		<input type="email" placeholder="Email" className="loginInputs" ref={email} required/>
+		<input type="password" placeholder="Password" className="loginInputs" ref={password} required minLength="6"/>
+		<input type="password" placeholder="Confirm Password" className="loginInputs" ref={passwordAgain} required/>
+		<button className="loginButton" type="Submit">Sign Up</button>
 		<button className="registerButton">Log into Account</button>
+		</form>
 
-
-		</div>
 		</div>
 		</div>
 

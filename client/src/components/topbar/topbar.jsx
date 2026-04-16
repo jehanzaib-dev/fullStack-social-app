@@ -1,6 +1,8 @@
 import './topbar.css';
 import * as MuiIcons from "@mui/icons-material";
 import {Link} from 'react-router-dom';
+import {useContext} from 'react';
+import {AuthContext} from '../../context/authContext.js';
 
 
 
@@ -10,6 +12,8 @@ export default function TopBar(){
 	const ChatIcon=MuiIcons.Chat;
 	const NotificationsIcon=MuiIcons.Notifications;
 
+	const {user}=useContext(AuthContext);
+	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
 
 	return(
 		<div className='topbarContainer'>
@@ -52,7 +56,9 @@ export default function TopBar(){
 
 			</div>
 		</div>
-		<img src="/assets/person/1.jpeg" alt="" className="topbarImg"/>
+		<Link to={`/profile/${user.username}`}>
+		<img src={user.profilePicture ? publicFolder+user.profilePicture : publicFolder+"person/noAvatar.png"} alt="" className="topbarImg"/>
+		</Link>
 		</div>
 
 		</div>
