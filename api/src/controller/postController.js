@@ -5,7 +5,7 @@ const createPost=async(req, res)=>{
 
 	try{
 		const post=await postModel.create(req.body);
-		res.status(201).json({message:"post created successfully",post:post});
+		res.status(201).json(post);
 	}
 	catch(err){
 		console.log("ERROR Occured:", err);
@@ -87,12 +87,16 @@ const getUserPosts=async(req, res)=>{
 const getTimelinePosts=async(req, res)=>{
 	try{
 		const currentUser=await userModel.findById(req.params.userId);
-		const currentUserPosts=await postModel.find({userId:currentUser._id});
+		const currentUserPosts=await postModel.find({userId:currentUser._id,});
 		const friendsPosts=await Promise.all(currentUser.following.map((friendId) => {
 			return postModel.find({userId:friendId});
 		})
 	);
-		res.status(200).json(currentUserPosts.concat(...friendsPosts));
+		const allPosts = currentUserPosts
+      .concat(...friendsPosts)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.status(200).json(allPosts);
 	}
 	catch(err){
 		console.log("ERROR Occured:", err);

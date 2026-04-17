@@ -4,32 +4,49 @@ import {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {format} from 'timeago.js'
+import { useContext } from 'react';
+import {AuthContext} from '../../context/authContext.js';
 
 
 export default function Post({post}){
 	const MoreVertIcon=MuiIcons.MoreVert;
 	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
 
-	const [likeCount, setLikeCount]=useState(post.likes.length);
+	const [likeCount, setLikeCount]=useState(post.likes?.length || 0);
 	const [isLiked, setIsLiked]=useState(false);
 	const [user, setUser]=useState({});
+	const {user:currentUser}=useContext(AuthContext);
 
 	
 
 
+	useEffect(() => {
+  setIsLiked(post.likes?.includes(currentUser._id));
+}, [currentUser._id, post.likes]);
 
-	const handleLike=()=>{
-		setLikeCount(isLiked?likeCount-1:likeCount+1);
-		setIsLiked(!isLiked);
-	}
-	useEffect(()=>{
-		const fetchUser=async()=>{
-		const response=await axios.get(`/users?userId=${post.userId}`);
-		
-		setUser(response.data.user);
-		}
-		fetchUser();
-	},[post.userId]);
+	const handleLike = async () => {
+  	try {
+		await axios.put(`/posts/react/${post._id}`, {
+      userId: currentUser._id,
+    });
+
+    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+    setIsLiked(!isLiked);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+	useEffect(() => {
+  const fetchUser = async () => {
+    if (!post.userId) return; // ✅ prevent crash
+
+    const res = await axios.get(`/users?userId=${post.userId}`);
+    setUser(res.data.user);
+  };
+
+  fetchUser();
+}, [post.userId]);
 
 return(
 	<div className="postContainer">
@@ -52,7 +69,10 @@ return(
 			<span className="postWrapperCenterText">
 				{post?.desc}
 			</span>
-			<img src={publicFolder+post.img} alt="" className="postWrapperCenterImg"/>
+			{post.img && (
+  			<img src={`http://localhost:8800/images/${post.img}`} alt="" className="postWrapperCenterImg"
+  			/>
+)}
 			</div>
 			<div className="postWrapperBottom">
 				<div className="postWrapperBottomLeft">

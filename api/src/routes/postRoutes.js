@@ -3,7 +3,7 @@ import {createPost, updatePost, deletePost, reactOnPost, getOnePost, getUserPost
 
 const postRouter=Router();
 
-postRouter.route("/create").post(createPost);
+postRouter.route("/").post(createPost);
 
 postRouter.route("/update/:id").put(updatePost);
 
