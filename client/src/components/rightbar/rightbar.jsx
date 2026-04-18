@@ -2,16 +2,42 @@
 import "./rightbar.css";
 import Online from '../online/online.jsx';
 import {Users} from '../../dummyData.js';
-
+import { useContext, useEffect, useState } from "react";
+import {AuthContext} from '../../context/authContext.js';
+import axios from 'axios';
+import { Link } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
 
 
 export default function RightBar({user}){
 
+		const [friends, setFriends]=useState([]);
+		const {user:currentUser}=useContext(AuthContext);
+
+	useEffect(()=>{
+		const getFriends=async()=>{
+			if(!user?._id) return;
+			try{
+				const friendList=await axios.get("/users/friends/"+ user._id);
+				setFriends(friendList.data);
+			}
+			catch(err){
+				console.log(err);
+			}
+		};
+		getFriends();
+	},[user]);
+
 	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
 
-	const ProfileRightBar=()=>{
+const ProfileRightBar=()=>{
 		return(
 			<>
+			{user.username !== currentUser.username && (
+				<button className="rightbarFollowButton">
+					Follow <AddIcon/>
+					</button>
+			)}
 			<h4 className="rightBarTitle">User Information
 			</h4>
 			<div className="rightBarDataCntnr">
@@ -34,12 +60,17 @@ export default function RightBar({user}){
 			</div>
 			<h4 className="userFriendsHeading">User Friends</h4>
 			<div className="userFollowingsCntnr">
+
+			{
+				friends?.map((friend)=>(
+			<Link key={friend._id} to={`/profile/${friend.username}`} style={{textDecoration:"none"}}>
 			<div className="userFollowingItemCntnr">
-			<img src={`${publicFolder}person/1.jpeg`} alt="" className="userFollowingImg"/>
-			<span className="rightbarFollowingName">Jone Carter
+			<img src={friend.profilePicture ? publicFolder+friend.profilePicture:publicFolder+"person/noAvatar.png" } alt="" className="userFollowingImg"/>
+			<span className="rightbarFollowingName">{friend.username}
 			</span>
 			</div>
-			
+			</Link>
+			))}
 
 			</div>
 

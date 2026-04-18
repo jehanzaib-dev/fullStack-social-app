@@ -58,7 +58,25 @@ const getUser= async(req, res)=>{
   }
 };
 
-
+const getFriends=async(req, res)=>{
+  try{
+    const user=await userModel.findById(req.params.userId);
+    const friends=await Promise.all(
+      user.following.map((friendId)=>{
+        return userModel.findById(friendId)
+      })
+    )
+    let friendList=[];
+    friends.map((friend)=>{
+      const {_id, username, profilePicture}=friend;
+      friendList.push({_id, username, profilePicture});
+    });
+    res.status(200).json(friendList);
+  }
+  catch(err){
+    res.status(500).json(message);
+  }
+}
 
 const followUser=async(req, res)=>{
   if(req.body.userId !== req.params.id){
@@ -111,7 +129,7 @@ const unFollowUser=async(req, res)=>{
   }
 }
 
-export {updateUser, deleteUser, getUser, followUser, unFollowUser}
+export {updateUser, deleteUser, getUser, getFriends, followUser, unFollowUser}
 
 
 

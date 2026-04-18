@@ -7,12 +7,17 @@ import RightBar from '../../components/rightbar/rightbar.jsx';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router';
 import axios from 'axios';
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext.js"; 
 
 
 
 
 export default function ProfilePage(){
 	const publicFolder=process.env.REACT_APP_PUBLIC_FOLDER;
+
+	const {user:currentUser}=useContext(AuthContext);
+	
 
 	const [user, setUser]=useState({});
 	const [posts, setPosts]=useState([]);
@@ -23,7 +28,6 @@ export default function ProfilePage(){
 		const response=await axios.get(`/users?username=${username}`);
 		
 		setUser(response.data.user);
-		console.log(user);
 		}
 		fetchUser();
 	},[username])
@@ -54,7 +58,7 @@ export default function ProfilePage(){
 		</div>
 		<div className="profileRightBottom">
 		<div className="postsCntnr">
-		<Share/>
+		{currentUser?.username===username &&<Share/>}
 		{posts?.map((post) => (
             <Post key={post._id} post={post} />
             ))}
