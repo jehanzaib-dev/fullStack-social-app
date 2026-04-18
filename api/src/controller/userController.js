@@ -57,6 +57,9 @@ const getUser= async(req, res)=>{
       res.status(500).json({ message: err.message });
   }
 };
+
+
+
 const followUser=async(req, res)=>{
   if(req.body.userId !== req.params.id){
     try{

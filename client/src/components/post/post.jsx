@@ -53,7 +53,7 @@ return(
 		<div className="postWrapper">
 			<div className="postWrapperTop">
 				<div className="postWrapperTopLeft">
-				<Link to={`profile/${user.username}`}>
+				<Link to={`/profile/${user.username}`}>
 				<img src={user.profilePicture ? publicFolder+user.profilePicture:publicFolder+"person/noAvatar.png"} alt="" className="postWrapperTopLeftImg"/>
 			</Link>
 				<span className="postWrapperTopLeftText">

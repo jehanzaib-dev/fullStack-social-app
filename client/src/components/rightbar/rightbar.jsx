@@ -39,31 +39,7 @@ export default function RightBar({user}){
 			<span className="rightbarFollowingName">Jone Carter
 			</span>
 			</div>
-			<div className="userFollowingItemCntnr">
-			<img src={`${publicFolder}person/2.jpeg`} alt="" className="userFollowingImg"/>
-			<span className="rightbarFollowingName">Jone Carter
-			</span>
-			</div>
-			<div className="userFollowingItemCntnr">
-			<img src={`${publicFolder}person/3.jpeg`} alt="" className="userFollowingImg"/>
-			<span className="rightbarFollowingName">Jone Carter
-			</span>
-			</div>
-			<div className="userFollowingItemCntnr">
-			<img src={`${publicFolder}person/4.jpeg`} alt="" className="userFollowingImg"/>
-			<span className="rightbarFollowingName">Jone Carter
-			</span>
-			</div>
-			<div className="userFollowingItemCntnr">
-			<img src={`${publicFolder}person/5.jpeg`} alt="" className="userFollowingImg"/>
-			<span className="rightbarFollowingName">Jone Carter
-			</span>
-			</div>
-			<div className="userFollowingItemCntnr">
-			<img src={`${publicFolder}person/6.jpeg`} alt="" className="userFollowingImg"/>
-			<span className="rightbarFollowingName">Jone Carter
-			</span>
-			</div>
+			
 
 			</div>
 

@@ -76,7 +76,7 @@ const getOnePost=async(req, res)=>{
 const getUserPosts=async(req, res)=>{
 	try{
 		const user=await userModel.findOne({username:req.params.username});
-		const userPosts=await postModel.find({userId:user._id});
+		const userPosts=await postModel.find({userId:user._id}).sort({createdAt:-1});
 		res.status(200).json(userPosts);
 	}
 	catch(err){
