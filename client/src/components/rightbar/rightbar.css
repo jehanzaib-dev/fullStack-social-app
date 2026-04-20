@@ -80,7 +80,9 @@
 	font-weight: 500;
 	cursor: pointer;
 } 
-
+.rightbarFollowButton:focus{
+	outline: none;
+}
 
 
 

@@ -3,16 +3,7 @@ import AuthReducer from './authReducer.js';
 
 
 const INITIAL_STATE={
-	user:{
-  _id:"69d747f9791e0b0a933a0da1" ,
-  username: "follower",
-  email: "sarim@gmail.com",
-  profilePicture: "person/1.jpeg",
-  coverPicture: "",
-  followers: [],
-  following: ["69d747e1791e0b0a933a0da0"],
-  isAdmin: false,
-	},
+	user:JSON.parse(localStorage.getItem("user")) || null,
 	isFetching:false,
 	error:false
 };

@@ -3,6 +3,7 @@ import './share.css';
 import * as MuiIcons from "@mui/icons-material";
 import {AuthContext} from '../../context/authContext.js';
 import axios from 'axios';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function Share({setPosts}){
 
@@ -58,6 +59,13 @@ export default function Share({setPosts}){
 			<input placeholder={"What's in your mind " +user.username+ "?"} className="shareWrapperTopInput" ref={desc}/>
 		</div>
 		<hr className="shareWrapperHr"/>
+		{
+			file && 
+			<div className="previewImageCntnr">
+			<img className="previewImage" src={URL.createObjectURL(file)} alt=""/>
+				<CancelIcon className="cancelButton" onClick={()=>setFile(null)}/>
+				</div>
+			}
 		<form className="shareWrapperBottom" onSubmit={handleSubmit}>
 		<div className="shareOptions">
 		<label htmlFor='fileInput' className="shareOption">

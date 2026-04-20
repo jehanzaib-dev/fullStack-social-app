@@ -1,15 +1,25 @@
 
 
 export const LoginStart=(userCredintials)=>({
-	type:LOGIN_START,
+	type:"LOGIN_START",
 });
 
 export const LoginSuccess=(user)=>({
-	type:LOGIN_SUCCESS,
+	type:"LOGIN_SUCCESS",
 	payload:user
 });
 
 export const LoginFailure=(error)=>({
-	type:LOGIN_FAILURE,
+	type:"LOGIN_FAILURE",
 	payload:error
+});
+
+export const Follow=(userId)=>({
+	type:"FOLLOW",
+	payload:userId
+});
+
+export const unFollow=(userId)=>({
+	type:"UNFOLLOW",
+	payload:userId
 });
