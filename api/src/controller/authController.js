@@ -27,7 +27,7 @@ const loginUser=async(req, res)=>{
 
     try{
 
-        const {email, password}=req.body;
+        const {email, password:inputPassword}=req.body;
         if(!email || !password){
             return res.status(400).json({message:"all fields are required"});
         }
@@ -38,8 +38,9 @@ const loginUser=async(req, res)=>{
         
         const isMatch=await user.comparePassword(password);
         if(!isMatch) return res.status(400).json({message:"invalid password"})
+        const {password, ...other}=user._doc;
 
-        res.status(200).json(user);
+        res.status(200).json(other);
 
     }
     catch(err){
