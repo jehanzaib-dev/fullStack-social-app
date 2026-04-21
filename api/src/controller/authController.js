@@ -39,9 +39,7 @@ const loginUser=async(req, res)=>{
         const isMatch=await user.comparePassword(password);
         if(!isMatch) return res.status(400).json({message:"invalid password"})
 
-        res.status(200).json({message:"user logged in successfully",
-            user}
-            );
+        res.status(200).json(user);
 
     }
     catch(err){

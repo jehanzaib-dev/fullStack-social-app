@@ -11,17 +11,27 @@ import { AuthContext } from '../../context/authContext.js';
 
 export default function HomePage(){
 	const [posts, setPosts]=useState([]);
-	const {user}=useContext(AuthContext);
+	const {user:currentUser}=useContext(AuthContext);
 
 	useEffect(() => {
-  		const fetchPosts = async () => {
-    	const res = await axios.get(
-      `/posts/timeline/${user._id}`
-    	);
-    	setPosts(res.data);
-  	};
-  		fetchPosts();
-	}, [user._id]);
+  const fetchPosts = async () => {
+    if (!currentUser?._id) return; // 🔥 IMPORTANT
+
+    try {
+      const res = await axios.get(
+        "/posts/timeline/" + currentUser._id
+      );
+      setPosts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  fetchPosts();
+}, [currentUser]);
+
+
+
 	return(
 		<>
 		<TopBar/>

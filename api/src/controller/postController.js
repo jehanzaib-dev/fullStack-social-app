@@ -85,6 +85,9 @@ const getUserPosts=async(req, res)=>{
 	}
 }
 const getTimelinePosts=async(req, res)=>{
+	if (!req.params.userId || req.params.userId === "undefined") {
+  return res.status(400).json({ message: "Invalid userId" });
+	}
 	try{
 		const currentUser=await userModel.findById(req.params.userId);
 		const currentUserPosts=await postModel.find({userId:currentUser._id,});
