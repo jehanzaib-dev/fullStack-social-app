@@ -1,53 +1,51 @@
 import { userModel } from "../models/userModel.js";
+import bcrypt from "bcrypt";
 
-const registerUser=async (req,res) => {
-    try {
-        const {username, email, password}=req.body;
+
+
+export const registerUser=async(req, res)=>{
+    try{
+        const {username, email, password }=req.body;
         if(!username || !email || !password){
             return res.status(400).json({message:"all fields are required"});
         }
-        const alreadyPresent=await userModel.findOne({email:email.toLowerCase()});
-        if(alreadyPresent){
+        const existingUser=await userModel.findOne({email:email.toLowerCase()});
+        if(existingUser){
             return res.status(400).json({message:"user already exists"});
         }
-        const user = await  userModel.create({
+        const newUser=await userModel.create({
             username,
             email:email.toLowerCase(),
-            password,
-            loggedIn:false
+            password
         });
-        res.status(201).json({message:"user created successfully", user:{id:user._id, email:user.email, username:user.username}});
+        const {password:pass, ...others}=newUser._doc;
+        return res.status(201).json(others);
 
-    } catch (err) {
-        console.log("ERROR Occured:", err);
-  res.status(500).json({ message: err.message });
-    }    
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
 };
-const loginUser=async(req, res)=>{
 
+
+export const loginUser=async(req, res)=>{
     try{
-
         const {email, password}=req.body;
         if(!email || !password){
             return res.status(400).json({message:"all fields are required"});
         }
-
-        const user= await userModel.findOne({email:email.toLowerCase()});
-        if(!user)
-            return res.status(400).json({message:"user not found"});
-        
-        const isMatch=await user.comparePassword(password);
-        if(!isMatch) return res.status(400).json({message:"invalid password"})
-
-        res.status(200).json(user);
-
+        const registeredUser=await userModel.findOne({email:email.toLowerCase()});
+        if(!registeredUser){
+            return res.status(404).json({message:"user not found"});
+        }
+        const isMatch=await bcrypt.compare(password, registeredUser.password);
+        if(!isMatch){
+            return res.status(401).json({message:"invalid credentials"});
+        }
+        const {password:pass, ...others}=registeredUser._doc;
+        res.status(200).json(others);
     }
     catch(err){
-        console.log("ERROR Occured:", err);
-  res.status(500).json({ message: err.message });
+        return res.status(500).json({message:err.message});
     }
-};
-
-export {
-    registerUser, loginUser
 }
