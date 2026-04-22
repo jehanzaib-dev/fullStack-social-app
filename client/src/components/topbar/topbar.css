@@ -82,7 +82,16 @@
 	object-fit: cover;
 	cursor: pointer;
 }
-
+.logoutBtn {
+  margin-left: 10px;
+  padding: 6px 10px;
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 800;
+}
 
 
 

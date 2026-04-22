@@ -24,13 +24,13 @@ function App() {
       {/* Login */}
       <Route
         path="/login"
-        element={!user ? <LoginPage /> : <Navigate to="/" />}
+        element={user ?<Navigate to="/" />:<LoginPage />}
       />
 
       {/* Register */}
       <Route
         path="/register"
-        element={!user ? <RegisterPage /> : <Navigate to="/" />}
+        element={user ? <Navigate to="/" />:<RegisterPage />}
       />
 
       {/* Profile (PROTECTED) */}
